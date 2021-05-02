@@ -38,6 +38,14 @@
           <% end %>
         </tr>
       </table>
+      <div class="comment">
+        <% @book.book_comments.each do |book| %>
+        <%= attachment_image_tag @book.book_comments.user %>
+        <%= form_with(model:[@book,@book_comment], local: true do |f| %>
+        <%= f.text_area :comment %>
+        <%= f.submit '送信' %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
