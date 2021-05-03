@@ -23,9 +23,9 @@
     <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
   <% else %>
     <% if current_user.following?(user) %>
-      <%= link_to 'フォローを外す', unfollow_path(user), method: :post %>
+      <%= link_to 'フォローを外す', user_unfollow_path(user), method: :post %>
     <% else %>
-      <%= link_to 'フォローする', follow_path(user), method: :post %>
+      <%= link_to 'フォローする', user_follow_path(user), method: :post %>
     <% end %>
   <% end %>
 </div>

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :users,only: [:show,:index,:edit,:update] do
     get 'following_users' => 'relationships#following_users', as: 'following_users'
     get 'follower_users' => 'relationships#follower_users', as: 'follower_users'
+    post 'follow' => 'relationships#follow', as: 'follow' # フォローする
+    post 'unfollow' => 'relationships#unfollow', as: 'unfollow' # フォロー外す
   end
 
   resources :books do
@@ -14,8 +16,7 @@ Rails.application.routes.draw do
   root to: 'homes#top'
   get 'home/about' => 'homes#about'
 
-  post 'follow/:id' => 'relationships#follow', as: 'follow' # フォローする
-  post 'unfollow/:id' => 'relationships#unfollow', as: 'unfollow' # フォロー外す
+
 
 
 end

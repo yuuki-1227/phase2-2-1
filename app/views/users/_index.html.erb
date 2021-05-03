@@ -1,3 +1,4 @@
+
 <table class='table'>
   <thead>
     <tr>
@@ -15,9 +16,9 @@
         <td>フォロワー数：<%= user.followeds.count %></td>
         <% if user.id != current_user.id %>
           <% if current_user.following?(user) %>
-            <td><%= link_to 'フォローを外す', unfollow_path(user), method: :post %></td>
+            <td><%= link_to 'フォローを外す', user_unfollow_path(user), method: :post %></td>
           <% else %>
-            <td><%= link_to 'フォローする', follow_path(user), method: :post %></td>
+            <td><%= link_to 'フォローする', user_follow_path(user), method: :post %></td>
           <% end %>
         <% else %>
           <td></td>
