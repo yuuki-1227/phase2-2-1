@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users
 
   resources :users,only: [:show,:index,:edit,:update] do
-    menber do
+    member do
       get :follower, :followed
     end
   end
