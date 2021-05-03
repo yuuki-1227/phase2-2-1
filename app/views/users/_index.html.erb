@@ -11,13 +11,13 @@
       <tr>
         <td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-icon.jpg") %></td>
         <td><%= user.name %></td>
-        <td>フォロー数：<%= user.relationship_followers.count %></td>
-        <td>フォロワー数：<%= user.relationship_followeds.count %></td>
+        <td>フォロー数：<%= user.follower.count %></td>
+        <td>フォロワー数：<%= user.followed.count %></td>
         <% if user.id != current_user.id %>
-          <% if user.relationship_followed_by?(current_user) %>
-            <td><%= link_to 'フォローを外す', relationships_path(user), method: :delete %></td>
+          <% if current_user.following?(user) %>
+            <td><%= link_to 'フォローを外す', unfollow_path(user), method: :post %></td>
           <% else %>
-            <td><%= link_to 'フォローする', relationships_path(user), method: :post %></td>
+            <td><%= link_to 'フォローする', follow_path(user), method: :post %></td>
           <% end %>
         <% else %>
           <td></td>

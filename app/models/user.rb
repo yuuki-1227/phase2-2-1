@@ -14,27 +14,27 @@ class User < ApplicationRecord
   validates :introduction, length: {maximum: 50}
 
     # foreign_key（FK）には、@user.xxxとした際に「@user.idがfollower_idなのかfollowed_idなのか」を指定します。
-  has_many :relationship_followers, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
+  has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   # @user.booksのように、@user.yyyで、
   # そのユーザがフォローしている人orフォローされている人の一覧を出したい
-  has_many :follower_users, through: :relationship_followers, source: :user
+  has_many :following_user, through: :follower, source: :followed
 
    # foreign_key（FK）には、@user.xxxとした際に「@user.idがfollower_idなのかfollowed_idなのか」を指定します。
-  has_many :relationship_followeds, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
   # @user.booksのように、@user.yyyで、
   # そのユーザがフォローしている人orフォローされている人の一覧を出したい
-  has_many :followed_users, through: :relationship_followeds, source: :user
+  has_many :follower_user, through: :followed, source: :follower
 
-  def followed?(other_user)
-    relationship_followeds.find_by(followed_id: other_user.id)
+  def following?(user)
+    following_user.include?(user)
   end
 
-  def follow?(other_user)
-    relationship_followeds.create!(followed_id: other_user.id)
+  def follow(user_id)
+    follower.create(followed_id: user_id)
   end
 
-  def unfollow?(other_user)
-    relationship_followeds.find_by(followed_id: other_user.id).destroy
+  def unfollow(user_id)
+    follower.find_by(followed_id: user_id).destroy
   end
 
 end

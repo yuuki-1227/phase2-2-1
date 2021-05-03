@@ -10,11 +10,11 @@
   </tr>
   <tr>
     <th>follows</th>
-    <th><%= link_to user.relationship_followeds.count, users_path %></th>
+    <th><%= link_to user.follower.count, followed_path(user) %></th>
   </tr>
   <tr>
     <th>followers</th>
-    <th><%= link_to user.relationship_followeds.count, users_path %></th>
+    <th><%= link_to user.followed.count, follower_path(user) %></th>
   </tr>
 </table>
 
@@ -22,10 +22,10 @@
   <% if user.id == current_user.id %>
     <%= link_to '',edit_user_path(user),class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user_#{user.id}" %>
   <% else %>
-    <% if user.followed_by?(current_user) %>
-      <%= link_to 'フォローを外す', relationships_path(user), method: :delete %>
+    <% if current_user.following?(user) %>
+      <%= link_to 'フォローを外す', unfollow_path(user), method: :post %>
     <% else %>
-      <%= link_to 'フォローする', relationships_path(user), method: :post %>
+      <%= link_to 'フォローする', follow_path(user), method: :post %>
     <% end %>
   <% end %>
 </div>
