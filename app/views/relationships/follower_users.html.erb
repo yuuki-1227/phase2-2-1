@@ -2,7 +2,11 @@
   <div class='row'>
     <div class='col-md-8 offset-md-1'>
       <h2>Follower Users</h2>
-      <%= render 'users/index',users: @users %>
+      <% if @users.empty? %>
+        <p>フォロワーはいません</p>
+      <% else %>
+        <%= render 'users/index',users: @users %>
+      <% end %>
     </div>
   </div>
 </div>
