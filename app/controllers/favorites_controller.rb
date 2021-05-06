@@ -14,7 +14,5 @@ class FavoritesController < ApplicationController
     favorite.destroy
   end
 
-  private
-
 
 end
