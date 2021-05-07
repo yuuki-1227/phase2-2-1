@@ -14,4 +14,8 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:email])
   end
+
+  def zipedit
+    params.require(:user).permit(:postal_code, :prefecture_code, :city, :street)
+  end
 end
